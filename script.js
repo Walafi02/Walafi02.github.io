@@ -4,6 +4,7 @@ const random = (max, min) => Math.random() * ( max - min ) + min
 const intensidade = document.querySelector("input[name=intensidade]")
 
 const send = () => {        
+    removeSpans()
     for(let i = 0; i <= intensidade.value; i++){    
         const span = document.createElement('span')
         
@@ -22,6 +23,18 @@ const send = () => {
         
         drops.appendChild(span)
     }
+}
+    
+const removeSpans = () => {
+    const dropsSpans = document.querySelectorAll('div.drops span')
+    console.log(dropsSpans.length)
+    dropsSpans.forEach(item => {
+        let bounding = item.getBoundingClientRect();
+        if(bounding.bottom > (window.innerHeight || document.documentElement.clientHeight)){
+            item.remove();
+        }
+    })
+    console.log(document.querySelectorAll('div.drops span').length)
 }
 
 send();
